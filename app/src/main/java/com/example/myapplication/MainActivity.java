@@ -37,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
                     if (result.getResultCode() == RESULT_OK) {
                         // Successfully signed in
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        String nome = user.getEmail();
+                        Toast.makeText(MainActivity.this, user.getEmail(), Toast.LENGTH_SHORT).show();
+                        user.delete();
 
-                        Toast.makeText(MainActivity.this, nome, Toast.LENGTH_SHORT).show();
+
                         open_Page();
                     } else {
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     );
     private Button entrar;
     private EditText email,senha;
-    private TextView cadastrar;
+    private TextView cadastrar, bemvindo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Choose authentication providers
         List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.FacebookBuilder().build());
+                new AuthUI.IdpConfig.GoogleBuilder().build());
 
 // Create and launch sign-in intent
         Intent signInIntent = AuthUI.getInstance()
